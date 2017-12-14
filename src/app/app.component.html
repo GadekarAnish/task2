@@ -1,80 +1,93 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="mainContainer" style="text-align:center">
   <h1>
    {{ title }}!
+   {{num}}
   </h1>
  
  <h2>Json Data From Server</h2>
   <div>
-    <button class="btn btn1 btn2" (click)="readData()">
+    <button class="read" (click)="readData()">
        Read Json Data
     </button>
   </div>
   <br/><br/>
-
-  <!--
- <div>
-  hello
-            <ul>
-                <li *ngFor="let JsonData of jsonData">
-                    <span>{{jsonData.name}}</span>
-                </li>
-            </ul>
-        </div>
-
--->
 <!--
+  <select>
+   
+    <option  (onChange)="sortByName()">sortByName </option>
+        <option  (onChange)="sortlastname()">sortByLastname </option>
+ </select> -->
+
+<div class="dropdown">
+  <button class="dropbtn">sort</button>
+  <div class="dropdown-content">
+   <a (click)="sortByName()">Sort by name </a>
+   <a (click)="sortlastname()">sortByLastname</a>
+   <a (click)="sortByDate()" >sortByDate</a>
+   <a (click)="sortByContact()">sortByContact</a>
+   <a (click)="sortByAddress()">sortByAddress</a>
+  </div>
+</div>
+
+
+<div class="dropdown1">
+  <button class="dropbtn">filter by Address</button>
+  <div class="dropdown-content">
+    <a (click)="nofil()" >No Filter</a>
+   <a (click)="filterByAddress()">Mapusa </a>
+   <a (click)="filterByAddressPorvorim()">Porvorim </a>
+  </div>
+</div>
+
+
+
+
+<!--
+<div>
+
+<button (click)="sortByName()" class=""> sortByName</button>
+<button (click)="sortlastname()" > sortByLastname</button>
+<button (click)="sortByDate()" > sortByDate</button>
+<button (click)="sortByContact()" > sortByContact</button>
+<button (click)="sortByAddress()" > sortByAddress</button>
+</div>
+<button (click)="filterByAddress()" > Mapusa</button>
+  <button (click)="nofil()" > nofil</button>
+-->
+  <br/>
+
+ 
+
+<div class="container-table">
 <table border="1px">
 <tr>
+
   <th>Name</th>
   <th>Lastname</th>
   <th>DOB</th>
   <th>phone</th>
   <th>Address</th>
 </tr>
-<tr *ngFor="let JsonData1 of jsonData">
- <td>{{jsonData1.name}}</td>
-  <td>{{jsonData1.lastname}}</td>
-   <td>{{jsonData1.dob}}</td>
-    <td>{{jsonData1.phone}}</td>
-     <td>{{jsonData1.address}}</td>
+<tr *ngFor="let data of jsonData | slice: (curPage * recordsPerPage) - recordsPerPage : curPage * recordsPerPage">
+<!--<tr *ngFor="let data of jsonData | filterPipe : searchText">-->
+  <td>{{data.name | uppercase }}</td> 
+  <td>{{data.lastname | uppercase}}</td> 
+   <td>{{data.dob | date}}</td> 
+    <td>{{data.phone}}</td> 
+     <td>{{data.address | uppercase }}</td> 
 </tr>
 
 </table>
--->hiiiiiii
 
-<table border="1">
-<tr ng-repeat="let x in jsonData">
+</div>
 
-  <td>{{x.lastname}}</td>  
-    <td>{{x.name}}</td>
-</tr>
-</table>
-
-
+<div class="pagination">
+      <button [disabled] ="curPage == 1" (click)="curPage = curPage - 1">PREV</button>
+      
+     
+      <button [disabled] = "curPage >= num/recordsPerPage" (click) ="curPage = curPage + 1">NEXT</button>
+  </div>
 
 
-
-
-
-
-
-
-
-  <!--
- <table border="1" class="demoTable">
-   <tr *ngFor="let x of JsonData">
-    <td *ngFor="let y of x">{{ y }}</td>
-     <td> {{x.name}}</td>
-   </tr>
-</table>
-
-
-
-  <div>
-    <table border="1" class="demoTable">
-      <tr *ngFor="let x of csvData">
-        <td *ngFor="let y of x">{{ y }}</td>
-      </tr>
-    </table>-->
   </div>
